@@ -4,6 +4,7 @@ ArmA Trenches
 Script/mod for implementing and utilizing trenches in ArmA 3.
 
 Authors: Kiefer, Joseph/Smutton of Taskforce Blackjack
+
 Website: http://www.tf-blackjack.com
 
 Change Log
