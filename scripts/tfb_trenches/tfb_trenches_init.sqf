@@ -12,7 +12,7 @@
 // *  - [x] Scrollwheel option to dig/fill
 // *  - [x] Dig based off of classname(s)
 // *  - [x] Add to GetHub [Joe]
-// *  - [o] Modulize script functions [Joe]
+// *  - [x] Modulize script functions [Joe]
 // *  - [o] Make sure this works in multiplayer [Kiefer]
 // *  - [o] Add timers to dig/fill 
 // *  - [o] Add cancel system (move to cancel)
@@ -42,8 +42,13 @@ if( isDedicated ) exitWith {};
 // Initialization
 [] spawn
 {
+
+	// Anti JIP
+	waitUntil {!isNull player};
+	waitUntil {player == player};
+
     if ([player] call tfb_fnPlayerCanDig) then {
-        ActionID = player addAction ["Dig Trench", "scripts\tfb_trenches\tfb_AddAction.sqf", [[player],tfb_fnDigTrench]];
+        player addAction ["Dig Trench", "scripts\tfb_trenches\tfb_AddAction.sqf", [[player],tfb_fnDigTrench]];
     };
     hint "TRENCH Started";
 }
