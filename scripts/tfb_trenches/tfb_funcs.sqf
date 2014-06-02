@@ -1,30 +1,44 @@
 // Dig a trench
 tfb_fnDigTrench = {
-
-	_args = _this;
+	// Basics
+	_args	= _this;
+	_player	= _args select 0;
+	_id		= _args select 1;
 	
+	// Create trench
 	_trench = createVehicle [
 		"CraterLong",
-		_args select 0 modelToWorld [0,2,-.4], 
+		_player modelToWorld [0,2,-.37], 
 		[], 
 		0, 
 		"CAN_COLLIDE"
 	];
 	
-    _trench setDir (getDir (_args select 0) - 90);
-	(_args select 0) removeAction ActionID;
-    ActionID = _trench addAction ["Fill Trench", "scripts\tfb_trenches\tfb_addAction.sqf", [[_trench,_this select 2], tfb_fnRemoveTrench], 1.5, true, true, "", "call tfb_fnSetId"]; 
+	// Set direction of trench
+    _trench setDir (getDir _player - 90);
+	
+	// Remove "Dig Trench" option
+	_player removeAction _id;
+	
+	// Add "Fill Trench" option
+    _trench addAction ["Fill Trench", "scripts\tfb_trenches\tfb_addAction.sqf", [[_trench,_player], tfb_fnRemoveTrench]]; 
 };
 
 // Remove trench
 tfb_fnRemoveTrench = {
-	_args = _this;
+	// Basics
+	_args	= _this;
+	_trench	= _this select 0;
+	_player = _this select 1;
 	
-    deleteVehicle (_args select 1);
-    ActionID = player addAction ["Dig Trench", "scripts\tfb_trenches\tfb_addAction.sqf", [[player,_this select 2], tfb_fnDigTrench], 1.5, true, true, "", "call tfb_fnSetId"]; 
+	// Remove the trench
+    deleteVehicle _trench;
+	
+	// Add "Dig Trench" option
+    _player addAction ["Dig Trench", "scripts\tfb_trenches\tfb_addAction.sqf", [[_player], tfb_fnDigTrench]]; 
 };
 
-// Determine who is allowed to dig
+// Determine who is allowed to dig (_unit == player)
 tfb_fnPlayerCanDig = {
     _unit = _this select 0;
     _cond = false;
