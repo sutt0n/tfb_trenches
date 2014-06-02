@@ -47,9 +47,20 @@ if( isDedicated ) exitWith {};
 	// Allow JIP functionality
 	waitUntil {!isNull player};
 	waitUntil {player == player};
-
+	
+	//Add Action
     if ([player] call tfb_fnPlayerCanDig) then {
-        player addAction ["Dig Trench", "scripts\tfb_trenches\tfb_AddAction.sqf", [[player],tfb_fnDigTrench]];
+        TrenchAction = player addAction ["Dig Trench", "scripts\tfb_trenches\tfb_AddAction.sqf", [[player],tfb_fnDigTrench]];
     };
+	
+	//Remove action from dead player, add action to respawned player
+	player addEventHandler ["killed", {
+	 [] spawn {
+		player removeAction TrenchAction;
+		WaitUntil{alive player};
+	 	TrenchAction = player addAction ["Dig Trench", "scripts\tfb_trenches\tfb_AddAction.sqf", [[player],tfb_fnDigTrench]]; 
+		};
+	 } ];	
+	 
     hint "TRENCH Started";
 }
