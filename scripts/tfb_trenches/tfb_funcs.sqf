@@ -8,7 +8,7 @@ tfb_fnDigTrench = {
 	// Create trench
 	_trench = createVehicle [
 		"CraterLong",
-		_player modelToWorld [0,2,-.37], 
+		_player modelToWorld [0,2,-.36], 
 		[], 
 		0, 
 		"CAN_COLLIDE"
