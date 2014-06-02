@@ -16,3 +16,6 @@ Change Log
 ###v0.2
 * [+] Implemented classname dependencies for digging (i.e. only Engineers can dig)
 * [-] Scrollwheel option(s) now work
+ 
+###v0.3
+* [+] Modulized script (not anything exciting, really - except for us nerds)
