@@ -4,19 +4,20 @@
 // *
 // * @filename init.sqf
 // * @authors: Kiefer [=TFB=], Joseph/Smutton [=TFB=]
-// * @version 0.2
+// * @version 0.3
 // * @website http://tf-blackjack.com
 // * @created 5/29/2014
+// * @updated 6/1/2014
 // * 
 // * TODO:
 // *  - [x] Scrollwheel option to dig/fill
 // *  - [x] Dig based off of classname(s)
-// *  - [x] Add to GetHub [Joe]
-// *  - [x] Modulize script functions [Joe]
-// *  - [o] Make sure this works in multiplayer [Kiefer]
+// *  - [x] Add to GetHub
+// *  - [x] Modulize script functions
+// *  - [o] Make sure this works in multiplayer
 // *  - [o] Add timers to dig/fill 
 // *  - [o] Add cancel system (move to cancel)
-// *  - [o] Create Commands for multiple defense types
+// *  - [o] Create Commands for multiple defence types
 // *  - [o] Add basic position param, code
 // *  
 // ********************************************************
@@ -43,7 +44,7 @@ if( isDedicated ) exitWith {};
 [] spawn
 {
 
-	// Anti JIP
+	// Allow JIP functionality
 	waitUntil {!isNull player};
 	waitUntil {player == player};
 
