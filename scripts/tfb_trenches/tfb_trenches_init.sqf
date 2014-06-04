@@ -23,10 +23,13 @@
 // ********************************************************
 
 // Configuration
-tfb_whoCanDig	= ["B_engineer_F"];         //Who can dig, Array can be more than one type
+tfb_whoCanDigBasic			= ["Man"];         		//Who can dig basic trench (Recognizes Array)
+tfb_maxBasicTrench			= 1;							//Max trenches per unit
+//tfb_whoCanDigAdv			= ["B_engineer_F"];    //Who can dig advanced trench
+//tfb_maxAdvTrench			= 3;							//Max advanced trenches per unit
 //_anim         = "AmovPercMstpSrasWrflDnon_AinvPknlMstpSlayWrflDnon"; 
-//_TFB_dig_time = 10;                       //Time it takes to dig trench
-//_TFB_fill_time    = 5;                //Time it takes to fill trench
+//_tfb_dig_time = 10;                       //Time it takes to dig trench
+//_tfb_fill_time    = 5;                //Time it takes to fill trench
 
 // *********************************
 // * Don't edit below this line.   *
@@ -48,19 +51,24 @@ if( isDedicated ) exitWith {};
 	waitUntil {!isNull player};
 	waitUntil {player == player};
 	
+	// Counter for Basic Trenches
+	tfb_counter_basic = 0;
+	
 	//Add Action
     if ([player] call tfb_fnPlayerCanDig) then {
-        TrenchAction = player addAction ["Dig Trench", "scripts\tfb_trenches\tfb_AddAction.sqf", [[player],tfb_fnDigTrench]];
+		TrenchDigAction = player addAction ["Dig Trench", "scripts\tfb_trenches\tfb_AddAction.sqf", [[player],tfb_fnDigTrench]];
     };
 	
 	//Remove action from dead player, add action to respawned player
 	player addEventHandler ["killed", {
 	 [] spawn {
-		player removeAction TrenchAction;
+		player removeAction TrenchDigAction;
 		WaitUntil{alive player};
-	 	TrenchAction = player addAction ["Dig Trench", "scripts\tfb_trenches\tfb_AddAction.sqf", [[player],tfb_fnDigTrench]]; 
+		if (tfb_counter_basic < tfb_maxBasicTrench) then {
+			TrenchDigAction = player addAction ["Dig Trench", "scripts\tfb_trenches\tfb_AddAction.sqf", [[player],tfb_fnDigTrench]];  }
 		};
-	 } ];	
-	 
+	} ];
+	
+	// Testing if Trench has started properly
     hint "TRENCH Started";
 }

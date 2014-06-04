@@ -20,8 +20,14 @@ tfb_fnDigTrench = {
 	// Remove "Dig Trench" option
 	_player removeAction _id;
 	
+	// Add 1 to Basic Trench counter
+	tfb_counter_basic = tfb_counter_basic + 1;
+	
 	// Add "Fill Trench" option
-    _trench addAction ["Fill Trench", "scripts\tfb_trenches\tfb_addAction.sqf", [[_trench,_player], tfb_fnRemoveTrench]]; 
+    TrenchFillAction = _trench addAction ["Fill Trench", "scripts\tfb_trenches\tfb_addAction.sqf", [[_trench,_player], tfb_fnRemoveTrench]]; 
+	
+	// Testing Counter (Remove This Later)
+	hint format ["Number of Trenches: %1", tfb_counter_basic];
 };
 
 // Remove trench
@@ -31,11 +37,20 @@ tfb_fnRemoveTrench = {
 	_trench	= _this select 0;
 	_player = _this select 1;
 	
+	// Remove the "Fill Trench" option
+	_player removeAction TrenchFillAction;
+	
 	// Remove the trench
     deleteVehicle _trench;
 	
+	// Subtract 1 from Basic Trench counter
+	tfb_counter_basic = tfb_counter_basic - 1;
+	
 	// Add "Dig Trench" option
-    _player addAction ["Dig Trench", "scripts\tfb_trenches\tfb_addAction.sqf", [[_player], tfb_fnDigTrench]]; 
+   TrenchDigAction = _player addAction ["Dig Trench", "scripts\tfb_trenches\tfb_addAction.sqf", [[_player], tfb_fnDigTrench]]; 
+   
+   // Testing Counter (Remove This Later)
+	hint format ["Number of Trenches: %1", tfb_counter_basic];
 };
 
 // Determine who is allowed to dig (_unit == player)
@@ -44,6 +59,6 @@ tfb_fnPlayerCanDig = {
     _cond = false;
     {
         if (_unit isKindOf _x) then {_cond = true};
-    } forEach tfb_whoCanDig;      // Check against entire array of types
+    } forEach tfb_whoCanDigBasic;      // Check against entire array of types
     _cond
 };
