@@ -61,13 +61,21 @@ if( isDedicated ) exitWith {};
 	
 	//Remove action from dead player, add action to respawned player
 	player addEventHandler ["killed", {
-	 [] spawn {
-		player removeAction TrenchDigAction;
-		WaitUntil{alive player};
-		if (tfb_counter_basic < tfb_maxBasicTrench) then {
-			TrenchDigAction = player addAction ["Dig Trench", "scripts\tfb_trenches\tfb_AddAction.sqf", [[player],tfb_fnDigTrench]];  }
-		};
-	} ];
+		_player = _this select 0;
+	
+		_player removeAction TrenchDigAction;
+	
+		[] spawn {
+			
+			waitUntil{alive player};
+			waitUntil{player==player};
+			
+			if (tfb_counter_basic < tfb_maxBasicTrench) then {
+				TrenchDigAction = player addAction ["Dig Trench", "scripts\tfb_trenches\tfb_AddAction.sqf", [[player],tfb_fnDigTrench]];  
+			}
+			
+		};		
+	}];
 	
 	// Testing if Trench has started properly
     hint "TRENCH Started";
