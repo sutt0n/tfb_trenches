@@ -22,4 +22,4 @@ Change Log
 
 Note
 ====
-This is a huge work-in-progress. When I (Joseph/Smutton/sutt0n) say "huge", I'm talking pre-Alpha stuff.
+This is a huge work-in-progress. When I say "huge", I'm talking pre-Alpha stuff.
