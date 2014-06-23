@@ -19,3 +19,7 @@ Change Log
  
 ###v0.3
 * [+] Modulized script (not anything exciting, really - except for us nerds)
+
+Note
+====
+This is a huge work-in-progress. When I (Joseph/Smutton/sutt0n) say "huge", I'm talking pre-Alpha stuff.
